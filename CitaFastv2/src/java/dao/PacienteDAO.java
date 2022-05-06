@@ -3,10 +3,11 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import configuracion.Conexion;
-import modelo.Medico;
 
-public class MedicoDAO {
+import configuracion.Conexion;
+import modelo.Paciente;
+
+public class PacienteDAO {
     //creamos las variables para conectar la base de datos
     Connection con;
     //creamos una instancia con la clase que creamos en el paquete setting
@@ -16,21 +17,22 @@ public class MedicoDAO {
     //aqui se retornan datos en las consultas sql
     ResultSet rs;
 
-    public Medico getMedico(int id) {
-        Medico m = new Medico();
+    public Paciente getPaciente(int id) {
+        Paciente p = new Paciente();
         try {
-            String sql = "select * from medico where idMedico = "+id;
+            String sql = "select * from cita where idPaciente = "+id;
             con = conexion.getConexion();
             preparedStatement = con.prepareStatement(sql);
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                m.setIdMedico(id);
-                m.setNombreCompleto(rs.getString(2));
-                m.setEspecialidad(rs.getString(3));
-                m.setSede(rs.getString(4));
-                m.setCorreo(rs.getString(5));
-                m.setContraseña(rs.getString(6));
-                return m;
+                p.setIdPaciente(id);
+                p.setNombreCompleto(rs.getString(2));
+                p.setTipoDocumento(rs.getString(3));
+                p.setNumeroDocumento(rs.getString(4));
+                p.setTelefono(rs.getString(5));
+                p.setCorreo(rs.getString(6));
+                p.setContraseña(rs.getString(7));
+                return p;
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -17,7 +17,9 @@ public class CitaDAO {
     //aqui preparamos la declaracion sql
     PreparedStatement preparedStatement;
     //aqui se retornan datos en las consultas sql
-    ResultSet resultSet;
+    ResultSet rs;
+    PacienteDAO pdao = new PacienteDAO();
+    MedicoDAO mdao = new MedicoDAO();
 
     public List<Cita> getCitas() {
         List<Cita> citas = new ArrayList<>();
@@ -25,10 +27,79 @@ public class CitaDAO {
             String sql = "select * from cita";
             con = conexion.getConexion();
             preparedStatement = con.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
                 Cita c = new Cita();
-                
+                c.setIdCita(rs.getInt(1));
+                c.setNombreCompleto(rs.getString(2));
+                c.setIdentificacion(rs.getString(3));
+                c.setFecha(rs.getDate(4));
+                c.setSede(rs.getString(5));
+                c.setPaciente(pdao.getPaciente(rs.getInt(6)));
+                c.setMedico(mdao.getMedico(rs.getInt(7)));
+                citas.add(c);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return citas;
+    }
+
+    public List<Cita> getCitasDePaciente(int id) {
+        List<Cita> citas = new ArrayList<>();
+        try {
+            String sql = "select * from cita where idPaciente = "+id;
+            con = conexion.getConexion();
+            preparedStatement = con.prepareStatement(sql);
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Cita c = new Cita();
+                c.setIdCita(rs.getInt(1));
+                c.setNombreCompleto(rs.getString(2));
+                c.setIdentificacion(rs.getString(3));
+                c.setFecha(rs.getDate(4));
+                c.setSede(rs.getString(5));
+                c.setPaciente(pdao.getPaciente(rs.getInt(6)));
+                c.setMedico(mdao.getMedico(rs.getInt(7)));
+                citas.add(c);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return citas;
+    }
+
+    public List<Cita> getCitasDeMedico(int id) {
+        List<Cita> citas = new ArrayList<>();
+        try {
+            String sql = "select * from cita where idMedico = "+id;
+            con = conexion.getConexion();
+            preparedStatement = con.prepareStatement(sql);
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Cita c = new Cita();
+                c.setIdCita(rs.getInt(1));
+                c.setNombreCompleto(rs.getString(2));
+                c.setIdentificacion(rs.getString(3));
+                c.setFecha(rs.getDate(4));
+                c.setSede(rs.getString(5));
+                c.setPaciente(pdao.getPaciente(rs.getInt(6)));
+                c.setMedico(mdao.getMedico(rs.getInt(7)));
+                citas.add(c);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
