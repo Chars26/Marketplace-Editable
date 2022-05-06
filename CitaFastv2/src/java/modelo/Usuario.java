@@ -9,38 +9,22 @@ package modelo;
  *
  * @author santi
  */
-public class Usuario {
+public abstract class Usuario {
     
-    private int idUsuario;
-    private String perfil;
-    private String correo;
-    private String tipoDocumento;
-    private String numeroDocumento ;
-    private String password;
+    protected String nombreCompleto;
+    protected String correo ;
+    protected String contraseña;
 
-    public Usuario(int idUsuario, String perfil, String correo, String nombreCompleto, String tipoDocumento, String numeroDocumento, String password) {
-        this.idUsuario = idUsuario;
-        this.perfil = perfil;
-        this.correo = correo;
-        this.tipoDocumento = tipoDocumento;
-        this.numeroDocumento = numeroDocumento;
-        this.password = password;
+    public Usuario() {
+        
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public String getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
 
     public String getCorreo() {
@@ -51,33 +35,14 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getTipoDocumento() {
-        return tipoDocumento;
+    public String getContraseña() {
+        return contraseña;
     }
 
-    public void setTipoDocumento(String tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
-    public String getNumeroDocumento() {
-        return numeroDocumento;
-    }
-
-    public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
-
-    
-    
 }
 
 
