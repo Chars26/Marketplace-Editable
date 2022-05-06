@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.util.List;
-
+import dao.CitaDAO;
 import dao.MedicoDAO;
 import dao.PacienteDAO;
 import modelo.Cita;
@@ -23,8 +18,8 @@ public class controladorCitas extends HttpServlet {
     Paciente paciente;
     //creamos una instancia e inicializamos al objeto usuarioDAO
     Medico medico;
-    PacienteDAO pdao = new pacienteDAO();
-    MedicoDAO mdao = new medicoDAO();
+    PacienteDAO pdao = new PacienteDAO();
+    MedicoDAO mdao = new MedicoDAO();
     CitaDAO cdao = new CitaDAO();
 
     //estas variables las creamos porque son redundantes en muchos metodos
@@ -33,7 +28,7 @@ public class controladorCitas extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Al llamar al servlet este es el primer metodo que se ejecuta(processRequest)
-        String idUsuario = request.getParameter("idUsuario");
+        String idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
         //Se toma la variable que se envió por url
         String accion = request.getParameter("accion");
         //se determina que tipo de perfil es el usuario (paciente o medico)
@@ -41,7 +36,7 @@ public class controladorCitas extends HttpServlet {
         //se buscan las citas del usuario
         List<Cita> citas = perfil.equals("paciente") ? cdao.getCitasDePaciente(idUsuario) : mdao.getCitasDeMedico(idUsuario);
         //se crea un atributo del metodo request para poder mostrar variables en el front
-        request.setAttribute("productos", productos);
+        request.setAttribute("citas", citas);
         switch (accion) {
             case "home":
                 request.setAttribute("citas", citas);
